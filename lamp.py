@@ -1,14 +1,11 @@
 from bleak import BleakClient
-from rgbxy import Converter, GamutC
+from rgbxy import Converter, GamutC, get_light_gamut
 from struct import pack, unpack
 
+CHAR_MODEL          = "00002a24-0000-1000-8000-00805f9b34fb"
 CHAR_POWER          = "932c32bd-0002-47a2-835a-a8d455b859dd"
 CHAR_BRIGHTNESS     = "932c32bd-0003-47a2-835a-a8d455b859dd"
 CHAR_COLOR          = "932c32bd-0005-47a2-835a-a8d455b859dd"
-
-# Hue Go uses GamutC
-# you might need GamutA or GamutB if you have a different model
-converter = Converter(GamutC)
 
 class Lamp(object):
     def __init__(self, address):
@@ -17,8 +14,17 @@ class Lamp(object):
     async def connect(self):
         await self.client.connect()
 
+        model = await self.get_model()
+        try:
+            self.converter = Converter(get_light_gamut(model))
+        except ValueError:
+            self.converter = Converter(GamutC)
+
     async def disconnect(self):
         await self.client.disconnect()
+
+    async def get_model(self):
+        return await self.client.read_gatt_char(CHAR_MODEL).decode("ascii")
 
     async def get_power(self):
         return await self.client.read_gatt_char(CHAR_POWER)[0]
@@ -44,8 +50,8 @@ class Lamp(object):
 
     async def get_color_rgb(self):
         x, y = await self.get_color_xy()
-        return converter.xy_to_rgb(x, y)
+        return self.converter.xy_to_rgb(x, y)
 
     async def set_color_rgb(self, r, g, b):
-        x, y = converter.rgb_to_xy(r, g, b)
+        x, y = self.converter.rgb_to_xy(r, g, b)
         await self.set_color_xy(x, y)
