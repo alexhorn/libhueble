@@ -1,8 +1,18 @@
-# lämp
+# lämp 🦋
 
 A bridge that allows you to control your Bluetooth-capable Philips Hue lights via HomeKit.
 
 ## Setup
+
+### Install
+
+```
+sudo apt install python3 python3-venv python3-wheel avahi-utils
+git clone https://github.com/alexhorn/laemp.git
+cd laemp
+python3 -m venv venv
+./venv/bin/pip3 install -r requirements.txt
+```
 
 ### Pair your lamp
 
@@ -26,12 +36,12 @@ A bridge that allows you to control your Bluetooth-capable Philips Hue lights vi
 
 ### Add the bridge to the Home app
 
-1. Run from a terminal:
+1. Run from a terminal (you either need to use *sudo* or *setcap* to access Bluetooth):
    ```
    sudo ./venv/bin/python3 hap_bridge.py
    ```
-2. Open the *Home* app and tap *Add device*
-3. Scan the QR code displayed in the terminal
+2. Open the *Home* app and tap *Add device*.
+3. Scan the QR code displayed in the terminal.
 
 
 ## Compatibility
