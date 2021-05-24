@@ -1,15 +1,15 @@
 import signal
+import configparser
 from pyhap.accessory import Bridge
 from pyhap.accessory_driver import AccessoryDriver
 from hap_lamp import LampAccessory
 
-LAMPS = {
-    'Hue Go': '00:11:22:33:44:55:66'
-}
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 def get_bridge(driver):
     bridge = Bridge(driver, 'Laemp Bridge')
-    for name, address in LAMPS.items():
+    for name, address in config['Lamps'].items():
         lamp = LampAccessory(driver, display_name=name, address=address)
         bridge.add_accessory(lamp)
     return bridge
