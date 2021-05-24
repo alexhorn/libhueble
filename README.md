@@ -1,6 +1,10 @@
 # lämp 🦋
 
-A bridge that allows you to control your Bluetooth-capable Philips Hue lights via HomeKit.
+A bridge for controlling your Bluetooth-capable Philips Hue lights via HomeKit.
+
+It uses HAP-python to provide a bridge that can be added to the iOS Home app.
+The lights are controlled directly using Bluetooth Low Energy (BLE), without the need for additional hardware.
+You can also use the included lamp.py to implement your own project in Python.
 
 ## Setup
 
@@ -14,7 +18,7 @@ python3 -m venv venv
 ./venv/bin/pip3 install -r requirements.txt
 ```
 
-### Pair your lamp
+### Pair your lights
 
 1. Use the Hue BT app to factory-reset your light. Otherwise it will refuse to bond to your computer.
 2. Open the bluetoothctl shell:
@@ -33,10 +37,14 @@ python3 -m venv venv
    ```
 6. Done, you can now pair the light to your phone again.
 
+### Create config
+
+1. Create a `config.ini` using `config.ini.example` as a reference.
+2. Add the names and MAC addresses of your paired lights.
 
 ### Add the bridge to the Home app
 
-1. Run from a terminal (you either need to use *sudo* or *setcap* to access Bluetooth):
+1. Run from a terminal (you need to use either *sudo* or *setcap* to access Bluetooth):
    ```
    sudo ./venv/bin/python3 hap_bridge.py
    ```
