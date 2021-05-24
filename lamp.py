@@ -24,16 +24,19 @@ class Lamp(object):
         await self.client.disconnect()
 
     async def get_model(self):
-        return await self.client.read_gatt_char(CHAR_MODEL).decode("ascii")
+        model = await self.client.read_gatt_char(CHAR_MODEL)
+        return model.decode("ascii")
 
     async def get_power(self):
-        return await self.client.read_gatt_char(CHAR_POWER)[0]
+        power = await self.client.read_gatt_char(CHAR_POWER)
+        return power[0]
 
     async def set_power(self, on):
         await self.client.write_gatt_char(CHAR_POWER, bytes([1 if on else 0]), response=True)
 
     async def get_brightness(self):
-        return await self.client.read_gatt_char(CHAR_BRIGHTNESS)[0] / 255
+        brightness = await self.client.read_gatt_char(CHAR_BRIGHTNESS)
+        return brightness[0] / 255
 
     async def set_brightness(self, brightness):
         await self.client.write_gatt_char(CHAR_BRIGHTNESS, bytes([max(min(int(brightness * 255), 254), 1)]), response=True)
