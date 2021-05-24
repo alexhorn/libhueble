@@ -49,3 +49,12 @@ python3 -m venv venv
 Works on Raspbian Buster.
 
 Sometimes it also works on Windows 10 20H2, but it is very flaky.
+
+## Credits
+
+This is pieced together from the reverse engineering efforts of other people on the internet.
+
+Sources:
+* https://github.com/npaun/philble
+* https://gist.github.com/shinyquagsire23/f7907fdf6b470200702e75a30135caf3
+* https://www.reddit.com/r/Hue/comments/eq0y3y/philips_hue_bluetooth_developer_documentation/
