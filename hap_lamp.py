@@ -5,9 +5,11 @@ from colorsys import rgb_to_hsv, hsv_to_rgb
 import asyncio
 
 def _async_callback(coro):
+    """Wrap an asynchronous callback to be called from a synchronous context"""
     return lambda val: asyncio.create_task(coro(val))
 
 class LampAccessory(Accessory):
+    """An accessory for HAP-python based on the `Lamp` class"""
 
     category = CATEGORY_LIGHTBULB
 

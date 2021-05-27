@@ -3,13 +3,13 @@ from rgbxy import Converter, GamutC, get_light_gamut
 from struct import pack, unpack
 
 # model number as an ASCII string
-CHAR_MODEL = "00002a24-0000-1000-8000-00805f9b34fb"
+CHAR_MODEL = '00002a24-0000-1000-8000-00805f9b34fb'
 # power state (0 or 1)
-CHAR_POWER = "932c32bd-0002-47a2-835a-a8d455b859dd"
+CHAR_POWER = '932c32bd-0002-47a2-835a-a8d455b859dd'
 # brightness (1 to 254)
-CHAR_BRIGHTNESS = "932c32bd-0003-47a2-835a-a8d455b859dd"
+CHAR_BRIGHTNESS = '932c32bd-0003-47a2-835a-a8d455b859dd'
 # color (CIE XY coordinates converted to two 16-bit little-endian integers)
-CHAR_COLOR = "932c32bd-0005-47a2-835a-a8d455b859dd"
+CHAR_COLOR = '932c32bd-0005-47a2-835a-a8d455b859dd'
 
 class Lamp(object):
     """A wrapper for the Philips Hue BLE protocol"""
@@ -36,7 +36,7 @@ class Lamp(object):
     async def get_model(self):
         """Returns the model string"""
         model = await self.client.read_gatt_char(CHAR_MODEL)
-        return model.decode("ascii")
+        return model.decode('ascii')
 
     async def get_power(self):
         """Gets the current power state"""
