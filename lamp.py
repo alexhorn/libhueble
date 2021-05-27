@@ -17,6 +17,10 @@ class Lamp(object):
     def __init__(self, address):
         self.client = BleakClient(address)
 
+    @property
+    def is_connected(self):
+        return self.client.is_connected
+
     async def connect(self):
         await self.client.connect()
 
