@@ -20,7 +20,7 @@ python3 -m venv venv
 
 ### Pair your lights
 
-1. Use the Hue BT app to factory-reset your light. Otherwise it will refuse to bond to your computer.
+1. In the Hue BT app, go to **Settings** > **Voice Assistants** > **Amazon Alexa** and tap **Make visible**.¹
 2. Open the bluetoothctl shell:
    ```
    sudo bluetoothctl
@@ -36,6 +36,8 @@ python3 -m venv venv
    trust [MAC address]
    ```
 6. Done, you can now pair the light to your phone again.
+
+¹ [Thanks to @danieleds.](https://github.com/alexhorn/laemp/issues/1)
 
 ### Create config
 
@@ -65,4 +67,4 @@ This is pieced together from the reverse engineering efforts of other people on 
 Sources:
 * https://github.com/npaun/philble
 * https://gist.github.com/shinyquagsire23/f7907fdf6b470200702e75a30135caf3
-* https://www.reddit.com/r/Hue/comments/eq0y3y/philips_hue_bluetooth_developer_documentation/
+* https://www.reddit.com/r/Hue/comments/eq0y3y/philips_hue_bluetooth_developer_documentation
