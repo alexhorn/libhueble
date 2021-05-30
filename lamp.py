@@ -15,13 +15,16 @@ class Lamp(object):
     """A wrapper for the Philips Hue BLE protocol"""
 
     def __init__(self, address):
-        self.client = BleakClient(address)
+        self.address = address
+        self.client = None
 
     @property
     def is_connected(self):
-        return self.client.is_connected
+        return self.client and self.client.is_connected
 
     async def connect(self):
+        # reinitialize BleakClient for every connection to avoid errors
+        self.client = BleakClient(self.address)
         await self.client.connect()
 
         model = await self.get_model()
@@ -32,6 +35,7 @@ class Lamp(object):
 
     async def disconnect(self):
         await self.client.disconnect()
+        self.client = None
 
     async def get_model(self):
         """Returns the model string"""
