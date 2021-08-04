@@ -1,24 +1,9 @@
-# lämp 🦋
+# libhueble
 
-A bridge for controlling your Bluetooth-capable Philips Hue lights via HomeKit.
-
-It uses HAP-python to provide a bridge that can be added to the iOS Home app.
+A library for controlling your Bluetooth-capable Philips Hue lights via HomeKit.
 The lights are controlled directly using Bluetooth Low Energy (BLE), without the need for additional hardware.
-You can also use the included lamp.py to implement your own project in Python.
 
-## Setup
-
-### Install
-
-```
-sudo apt install python3 python3-venv python3-wheel avahi-utils
-git clone https://github.com/alexhorn/laemp.git
-cd laemp
-python3 -m venv venv
-./venv/bin/pip3 install -r requirements.txt
-```
-
-### Pair your lights
+## Pairing
 
 1. In the Hue BT app, go to **Settings** > **Voice Assistants** > **Amazon Alexa** and tap **Make visible**.¹
 2. Open the bluetoothctl shell:
@@ -39,20 +24,18 @@ python3 -m venv venv
 
 ¹ [Thanks to @danieleds.](https://github.com/alexhorn/laemp/issues/1)
 
-### Create config
+## Usage
 
-1. Create a `config.ini` using `config.ini.example` as a reference.
-2. Add the names and MAC addresses of your paired lights.
-
-### Add the bridge to the Home app
-
-1. Run from a terminal (you need to use either *sudo* or *setcap* to access Bluetooth):
-   ```
-   sudo ./venv/bin/python3 hap_bridge.py
-   ```
-2. Open the *Home* app and tap *Add device*.
-3. Scan the QR code displayed in the terminal.
-
+```
+lamp = Lamp('00:11:22:33:44:55')
+await lamp.connect()
+try:
+   await lamp.set_power(True)
+   await lamp.set_brightness(1.0)
+   await lamp.set_color_rgb(1.0, 0.0, 0.0)
+finally:
+   await lamp.disconnect()
+```
 
 ## Compatibility
 
