@@ -1,7 +1,6 @@
 # libhueble
 
-A library for controlling your Bluetooth-capable Philips Hue lights via HomeKit.
-The lights are controlled directly using Bluetooth Low Energy (BLE), without the need for additional hardware.
+A library for controlling your Bluetooth-capable Philips Hue lights directly using Bluetooth Low Energy (BLE) without a bridge.
 
 ## Pairing
 
